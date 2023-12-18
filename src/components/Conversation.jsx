@@ -19,7 +19,10 @@ export default function Conversation({ active, name, desc, onClick, avatar }) {
     <ListItem
       button={optionsOpen}
       onClick={onClick}
-      sx={{ border: `1px solid ${active ? "#11B1A5" : "#1F222A"}` }}
+      sx={{
+        borderRadius: 1,
+        border: `1px solid ${active ? "#11B1A5" : "#1F222A"}`,
+      }}
       secondaryAction={
         !optionsOpen ? (
           <IconButton
