@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import smilies from "../assets/smileys.png";
@@ -15,10 +15,9 @@ export default function Navbar({ fixed }) {
     <Box component="nav" sx={{ width: "100%", pt: 2 }}>
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="row" alignItems="center">
-          <img
+          <Avatar
             style={{ width: 40, height: 40, marginRight: 10 }}
             src={authUser ? avatar : smilies}
-            className={`${authUser && "rounded-circle "}`}
             alt="Logo"
           />
           <Typography variant="h5">
