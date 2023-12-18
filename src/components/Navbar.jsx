@@ -1,7 +1,8 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../firebase/auth';
-import smilies from '../assets/smileys.png';
+import { Box, Button, Stack, Typography } from "@mui/material";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import smilies from "../assets/smileys.png";
+import { useAuth } from "../firebase/auth";
 
 export default function Navbar({ fixed }) {
   const { authUser, signOut } = useAuth();
@@ -11,49 +12,32 @@ export default function Navbar({ fixed }) {
     `https://ui-avatars.com/api/?name=${authUser?.displayName}`;
 
   return (
-    <nav
-      style={{ background: '#35383F' }}
-      className={`navbar py-2 ${fixed ? 'fixed-top' : ''}`}
-    >
-      <div className='container-fluid'>
-        <div className='d-flex align-items-center navbar-brand text-white fw-bold'>
+    <Box component="nav" sx={{ width: "100%", pt: 2 }}>
+      <Stack direction="row" justifyContent="space-between">
+        <Stack direction="row" alignItems="center">
           <img
-            style={{ width: 40, height: 40 }}
+            style={{ width: 40, height: 40, marginRight: 10 }}
             src={authUser ? avatar : smilies}
-            className={`me-2 ${authUser && 'rounded-circle '}`}
-            alt='Logo'
+            className={`${authUser && "rounded-circle "}`}
+            alt="Logo"
           />
-          <div className='h4 m-0'>
-            {authUser ? authUser?.displayName : 'Gumzo AI'}
-          </div>
-        </div>
-        <div className='d-flex justify-content-center text-center'>
+          <Typography variant="h5">
+            {authUser ? authUser?.displayName : "Gumzo AI"}
+          </Typography>
+        </Stack>
+        <Stack direction="row" justifyContent="center">
           {!authUser && (
-            <button
-              onClick={() => navigate('/auth')}
-              className='buttons login d-none d-md-flex  justify-content-center align-items-center px-2 py-2 me-2 px-4'
-            >
-              Sign In
-            </button>
-          )}
-          {!authUser && (
-            <button
-              onClick={() => navigate('/auth')}
-              className='buttons signup d-flex justify-content-center align-items-center px-2 py-2 mr-2 px-4'
-            >
+            <Button variant="contained" onClick={() => navigate("/auth")}>
               Get Started
-            </button>
+            </Button>
           )}
           {authUser && (
-            <button
-              onClick={() => signOut()}
-              className='buttons signup d-flex justify-content-center align-items-center px-2 py-2 mr-2 px-5'
-            >
+            <Button variant="contained" onClick={() => signOut()}>
               Sign Out
-            </button>
+            </Button>
           )}
-        </div>
-      </div>
-    </nav>
+        </Stack>
+      </Stack>
+    </Box>
   );
 }

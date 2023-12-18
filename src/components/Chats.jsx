@@ -1,40 +1,38 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import Chat from './Chat';
-import Input from './Input';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import Chat from "./Chat";
+import Input from "./Input";
+import { Box, Stack, Typography } from "@mui/material";
 
 export default function Chats() {
   const anchor = React.useRef(null);
-  const state = useSelector(st => st);
+  const state = useSelector((st) => st);
   const { activeChat, loading } = state.messages;
   const chats = state.messages[activeChat];
 
   useEffect(() => {
-    anchor.current.scrollIntoView({ behavior: 'smooth' });
+    anchor.current.scrollIntoView({ behavior: "smooth" });
   }, [chats.length]);
 
   return (
-    <div>
-      <div
-        className='d-flex flex-column align-items-start'
+    <>
+      <Stack
+        spacing={1}
         style={{
-          gap: 24,
-          overflowY: 'auto',
-          height: window.innerWidth > 992 && 'calc(100vh - 200px)',
+          overflowY: "scroll",
+          height: window.innerWidth > 992 && "calc(100vh - 200px)",
         }}
       >
         {chats.map(({ owner, message }, index) => (
-          <Chat key={index} message={message} local={owner === 'Human'} />
+          <Chat key={index} message={message} local={owner === "Human"} />
         ))}
-        {!!loading && <Chat message='typing...' />}
+        {!!loading && <Chat message="typing..." />}
         {chats.length < 1 && (
-          <div className='text-white my-5 py-5 w-100 d-flex justify-content-center align-items-center flex-fill h-100'>
-            Start a conversation
-          </div>
+          <Typography sx={{ my: 5, py: 5 }}>Start a conversation</Typography>
         )}
-        <div ref={anchor} className='w-100'></div>
-      </div>
+        <Box ref={anchor} sx={{ width: "100%", height: 80 }}></Box>
+      </Stack>
       <Input />
-    </div>
+    </>
   );
 }

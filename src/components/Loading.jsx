@@ -1,11 +1,14 @@
-import React from 'react';
+import { CircularProgress, Stack } from "@mui/material";
+import React from "react";
 
 export default function Loading() {
   return (
-    <div className='page d-flex align-items-center justify-content-center'>
-      <div className='spinner-border text-primary' role='status'>
-        <span className='visually-hidden'>Loading...</span>
-      </div>
-    </div>
+    <Stack
+      alignItems="center"
+      justifyContent="center"
+      sx={{ width: "100%", height: "100vh" }}
+    >
+      <CircularProgress />
+    </Stack>
   );
 }
