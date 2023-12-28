@@ -1,11 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { usePostListDataMutation } from "../api/apiSlice";
-import send from "../assets/direct-right.png";
-import { addMessage, setLoading } from "../redux/slices/messagesSlice";
+import { SendRounded } from "@mui/icons-material";
 import {
   Alert,
-  Avatar,
   Card,
   Container,
   IconButton,
@@ -13,6 +8,10 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { usePostListDataMutation } from "../api/apiSlice";
+import { addMessage, setLoading } from "../redux/slices/messagesSlice";
 
 export default function Input({ exceeded }) {
   const [message, setMessage] = useState("");
@@ -96,7 +95,7 @@ export default function Input({ exceeded }) {
                     disabled={isLoading || exceeded}
                     onClick={sendChatMessage}
                   >
-                    <Avatar src={send} alt="" />
+                    <SendRounded />
                   </IconButton>
                 ),
               }}

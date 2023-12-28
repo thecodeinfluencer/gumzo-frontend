@@ -5,12 +5,14 @@ import Bots from "../components/Bots";
 import Loading from "../components/Loading";
 import Selector from "../components/Selector";
 import { useAuth } from "../firebase/auth";
+import Notice from "./Notice";
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { isLoading, authUser } = useAuth();
   const state = useSelector((st) => st);
   const { optionsOpen } = state.messages;
+  const { onboarded } = state.notice;
 
   useEffect(() => {
     if (!isLoading && !authUser) navigate("/");
@@ -19,15 +21,8 @@ export default function Dashboard() {
   if (isLoading || (!isLoading && !authUser)) return <Loading />;
 
   return (
-    <div
-      style={
-        {
-          // height: "100vh",
-          // overflow: "hidden"
-        }
-      }
-    >
-      {!!optionsOpen ? <Selector /> : <Bots />}
+    <div>
+      {!onboarded ? <Notice /> : !!optionsOpen ? <Selector /> : <Bots />}
     </div>
   );
 }

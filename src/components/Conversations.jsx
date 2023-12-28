@@ -8,7 +8,7 @@ export default function Conversations() {
   const activeBot = bots.find((bot) => bot.id === activeChat);
 
   return (
-    <Stack sx={{ my: 3 }}>
+    <Stack sx={{ mt: 1 }}>
       <List>
         <Conversation
           active
