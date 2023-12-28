@@ -1,13 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { apiSlice } from './api/apiSlice';
-import { useAuth } from './firebase/auth';
-import Dashboard from './pages/Dashboard';
-import Landing from './pages/Landing';
-import SignIn from './pages/SignIn';
-import messagesReducer from './redux/slices/messagesSlice';
-import { loadFromLocalStorage, saveToLocalStorage } from './redux/store';
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { apiSlice } from "./api/apiSlice";
+import { useAuth } from "./firebase/auth";
+import Dashboard from "./pages/Dashboard";
+import Landing from "./pages/Landing";
+import SignIn from "./pages/SignIn";
+import messagesReducer from "./redux/slices/messagesSlice";
+import noticeReducer from "./redux/slices/noticeSlice";
+import { loadFromLocalStorage, saveToLocalStorage } from "./redux/store";
 
 function App() {
   const { authUser } = useAuth();
@@ -18,8 +19,9 @@ function App() {
     reducer: {
       [apiSlice.reducerPath]: apiSlice.reducer,
       messages: messagesReducer,
+      notice: noticeReducer,
     },
-    middleware: getDefaultMiddleware =>
+    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false }).concat(
         apiSlice.middleware
       ),
@@ -31,9 +33,9 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Landing />} />
-          <Route path='/auth' element={<SignIn />} />
-          <Route path='/chat' element={<Dashboard />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/auth" element={<SignIn />} />
+          <Route path="/chat" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </Provider>
