@@ -9,6 +9,7 @@ export default function Chats() {
   const state = useSelector((st) => st);
   const { activeChat, loading } = state.messages;
   const chats = state.messages[activeChat];
+  const exceeded = chats.length > 10;
 
   useEffect(() => {
     anchor.current.scrollIntoView({ behavior: "smooth" });
@@ -32,7 +33,7 @@ export default function Chats() {
         )}
         <Box ref={anchor} sx={{ width: "100%", height: 80 }}></Box>
       </Stack>
-      <Input />
+      <Input exceeded={exceeded} />
     </>
   );
 }
