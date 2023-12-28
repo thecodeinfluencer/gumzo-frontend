@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import smilies from "../assets/smileys.png";
@@ -12,15 +12,19 @@ export default function Navbar({ fixed }) {
     `https://ui-avatars.com/api/?name=${authUser?.displayName}`;
 
   return (
-    <Box component="nav" sx={{ width: "100%", pt: 2 }}>
-      <Stack direction="row" justifyContent="space-between">
+    <Box component={authUser ? Paper : "nav"} sx={{ width: "100%", mt: 2 }}>
+      <Stack
+        sx={{ p: authUser ? 2 : 0 }}
+        direction="row"
+        justifyContent="space-between"
+      >
         <Stack direction="row" alignItems="center">
           <Avatar
-            style={{ width: 40, height: 40, marginRight: 10 }}
+            style={{ width: 30, height: 30, marginRight: 10 }}
             src={authUser ? avatar : smilies}
             alt="Logo"
           />
-          <Typography variant="h5">
+          <Typography>
             {authUser ? authUser?.displayName : "Gumzo AI"}
           </Typography>
         </Stack>

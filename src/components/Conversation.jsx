@@ -1,3 +1,4 @@
+import { ExpandMoreRounded } from "@mui/icons-material";
 import {
   Avatar,
   IconButton,
@@ -7,7 +8,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import arrowDown from "../assets/arrow-down.png";
 import { setOptionsOpen } from "../redux/slices/messagesSlice";
 
 export default function Conversation({ active, name, desc, onClick, avatar }) {
@@ -25,12 +25,8 @@ export default function Conversation({ active, name, desc, onClick, avatar }) {
       }}
       secondaryAction={
         !optionsOpen ? (
-          <IconButton
-            edge="end"
-            aria-label="delete"
-            onClick={() => dispatch(setOptionsOpen(true))}
-          >
-            <Avatar src={arrowDown}></Avatar>
+          <IconButton onClick={() => dispatch(setOptionsOpen(true))}>
+            <ExpandMoreRounded />
           </IconButton>
         ) : null
       }
