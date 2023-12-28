@@ -4,16 +4,20 @@ import { usePostListDataMutation } from "../api/apiSlice";
 import send from "../assets/direct-right.png";
 import { addMessage, setLoading } from "../redux/slices/messagesSlice";
 import {
+  Alert,
   Avatar,
   Card,
   Container,
   IconButton,
+  Snackbar,
   Stack,
   TextField,
 } from "@mui/material";
 
-export default function Input() {
+export default function Input({ exceeded }) {
   const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
   const state = useSelector((st) => st);
@@ -22,10 +26,13 @@ export default function Input() {
 
   const [sendChat, { isLoading }] = usePostListDataMutation();
 
+  const handleClose = (_, reason) => {
+    if (reason === "clickaway") return;
+    setOpen(false);
+  };
+
   const sendChatMessage = async () => {
     if (message.trim() === "") return;
-    dispatch(addMessage({ bot: activeChat, owner: "Human", message }));
-    setMessage("");
 
     dispatch(setLoading(true));
 
@@ -36,19 +43,18 @@ export default function Input() {
       },
     });
 
+    if (!error) {
+      dispatch(addMessage({ bot: activeChat, owner: "Human", message }));
+      setMessage("");
+    }
+
     if (error) {
-      console.log(error);
-      dispatch(
-        addMessage({
-          bot: activeChat,
-          owner: "AI",
-          message: "Sorry, something went wrong. Try again?",
-        })
-      );
+      setError(error?.data?.info || error?.data?.message || error?.message);
+      setOpen(true);
       dispatch(setLoading(false));
     }
 
-    if (data.message) {
+    if (data?.message) {
       dispatch(
         addMessage({
           bot: activeChat,
@@ -75,13 +81,21 @@ export default function Input() {
             spacing={2}
           >
             <TextField
+              disabled={exceeded}
               fullWidth
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type a message"
+              placeholder={
+                exceeded
+                  ? "Trial exceeded for this conversation"
+                  : "Type a message"
+              }
               InputProps={{
                 endAdornment: (
-                  <IconButton disabled={isLoading} onClick={sendChatMessage}>
+                  <IconButton
+                    disabled={isLoading || exceeded}
+                    onClick={sendChatMessage}
+                  >
                     <Avatar src={send} alt="" />
                   </IconButton>
                 ),
@@ -89,6 +103,11 @@ export default function Input() {
             />
           </Stack>
         </Card>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            {error}
+          </Alert>
+        </Snackbar>
       </Container>
     </Stack>
   );
