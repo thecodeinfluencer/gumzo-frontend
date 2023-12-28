@@ -1,6 +1,6 @@
 # React Redux GumzoAI Chat
 
-This project is hosted at [Create React App](https://gumzoai.web.app/).
+This project is hosted at [gumzoai.web.app](https://gumzoai.web.app/).
 
 ## Running the project
 
