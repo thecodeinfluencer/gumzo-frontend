@@ -22,10 +22,10 @@ export default function Landing() {
         <Navbar />
         <Stack alignItems="center" sx={{ mt: 10, mb: 5 }}>
           <Typography variant="h3" textAlign="center" sx={{ mx: 2 }}>
-            Chat with AI bots with different personalities
+            Chat with AI 
           </Typography>
           <Typography variant="h6" textAlign="center">
-            Test out different use cases for AI and chat with our bots.
+            Test out different AI bots with different personalities
           </Typography>
         </Stack>
         <Stack direction="row" sx={{ mb: 5 }} spacing={1}>
