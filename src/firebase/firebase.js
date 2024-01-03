@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { EmailAuthProvider, getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
@@ -26,7 +26,7 @@ export const uiConfig = {
   signInFlow: "popup",
   signInSuccessUrl: "/chat",
   signInOptions: [
-    EmailAuthProvider.PROVIDER_ID,
+    // EmailAuthProvider.PROVIDER_ID,
     GoogleAuthProvider.PROVIDER_ID,
   ],
 };
