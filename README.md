@@ -1,4 +1,4 @@
-# React Redux GumzoAI Chat
+# GumzoAI - Frontend
 
 ![Project Cover](/src/assets/cover.png)
 
